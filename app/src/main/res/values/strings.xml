@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">TP4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_home">Home</string>
+    <string name="text_profile">Profile</string>
+    <string name="text_settings">Settings</string>
+    <string name="tv_Id">ID</string>
+    <string name="et_Id">Id</string>
+    <string name="btn_Buscar">BUSCAR</string>
+    <string name="tv_NombreProducto">NOMBRE PRODUCTO</string>
+    <string name="et_NombreProducto">Nombre Producto</string>
+    <string name="tv_Stock">STOCK</string>
+    <string name="et_Stock">Stock</string>
+    <string name="tv_Categoria">CATEGORIA</string>
+    <string name="sp_Categoria">Categoria</string>
+    <string name="btn_Modificar">MODIFICAR</string>
+    <string name="id_prod">Id</string>
+
+    <string name="nombre_prod">Nombre producto</string>
+
+    <string name="stock">Stock</string>
+
+    <string name="categoria">Categoria</string>
+
+    <string name="agregar">Agregar</string>
+</resources>
