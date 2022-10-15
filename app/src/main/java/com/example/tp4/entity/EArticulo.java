@@ -1,12 +1,28 @@
 package com.example.tp4.entity;
 
+
+
 public class EArticulo {
+
     private int id;
+
     private String nombre;
+
     private int stock;
+
     private ECategoria categoria;
 
     public EArticulo() {
+    }
+
+    public EArticulo(int id, String nombre) {
+        id = id;
+        nombre = nombre;
+    }
+
+    public int getIds(){
+        String id = String.valueOf(getId());
+        return id.hashCode();
     }
 
     public EArticulo(int id, String nombre, int stock, ECategoria categoria) {
