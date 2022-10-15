@@ -7,35 +7,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
+import com.example.tp4.entity.EArticulo;
+
 import java.util.List;
 
 public class AdaptadorArticulos extends BaseAdapter {
     private Context context;
     private List<EArticulo> articulos ;
 
-    private EArticulo[] items = {
-            new EArticulo(1, "123"),
-            new EArticulo(2, "123"),
-            new EArticulo(3, "123"),
-            new EArticulo(4, "123"),
-            new EArticulo(5, "123"),
-            new EArticulo(6, "123"),
-            new EArticulo(7, "123"),
-    };
 
+    public AdaptadorArticulos(Context context, List<EArticulo> arts) {
 
-    public AdaptadorArticulos(Context context) {
         this.context = context;
+        articulos = arts;
     }
 
     @Override
     public int getCount() {
-        return items.length;
+
+        return articulos != null ? articulos.size() : 0;
     }
 
     @Override
     public EArticulo getItem(int position) {
-        return items[position];
+        return articulos != null ?  articulos.get(position): null;
     }
 
     @Override
@@ -52,13 +48,13 @@ public class AdaptadorArticulos extends BaseAdapter {
 
         }
 
-        TextView Id = ((TextView) view.findViewById(R.id.tv_Id));
+        TextView Id = ((TextView) view.findViewById(R.id.tvIdListar));
         TextView Nombre = ((TextView) view.findViewById(R.id.tv_nombre));
 
         if(articulos != null){
-            final EArticulo item = (EArticulo) getItem(position);
+            EArticulo item = (EArticulo) getItem(position);
 
-            Id.setText(item.getId());
+            Id.setText( String.valueOf(item.getId()) );
             Nombre.setText(item.getNombre());
         }
 
