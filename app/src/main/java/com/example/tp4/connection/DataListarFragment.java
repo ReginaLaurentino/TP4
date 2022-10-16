@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
+
 import com.example.tp4.AdaptadorArticulos;
 import com.example.tp4.entity.EArticulo;
 import com.example.tp4.entity.ECategoria;
@@ -20,16 +22,20 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
 
     private GridView gridView;
     private Context context;
+    private String Pantalla;
+    private String Idbuscar;
 
     private static String result2;
     private static ArrayList<EArticulo> listaArticulos = new ArrayList<>();
 
     //Recibe por constructor el textview
     //Constructor
-    public DataListarFragment(GridView gv, Context ct)
+    public DataListarFragment(@Nullable GridView gv, @Nullable Context ct,
+                              String pantalla, @Nullable EArticulo art, @Nullable String idbuscar )
     {
         gridView = gv;
         context = ct;
+        Pantalla = pantalla;
 
     }
 
@@ -41,6 +47,32 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
             Statement st = con.createStatement();
+
+            switch (Pantalla){
+                case "listar": Listar(st);
+            }
+
+
+            response = "Conexion exitosa";
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            result2 = "Conexion no exitosa";
+        }
+        return response;
+
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+        AdaptadorArticulos adapter = new AdaptadorArticulos(context, listaArticulos);
+        gridView.setAdapter(adapter);
+    }
+
+
+    private void Listar(Statement st){
+
+        try{
             ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria");
             result2 = " ";
 
@@ -56,20 +88,11 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
                 categoria.setDescripcion(rs.getString("descripcion"));
                 articulo.setCategoria(categoria);
                 listaArticulos.add(articulo);
+            }} catch (Exception ex ){
+                   ex.printStackTrace();
+                   result2 = "Conexion no exitosa";
             }
-            response = "Conexion exitosa";
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            result2 = "Conexion no exitosa";
-        }
-        return response;
 
-    }
 
-    @Override
-    protected void onPostExecute(String response) {
-        AdaptadorArticulos adapter = new AdaptadorArticulos(context, listaArticulos);
-        gridView.setAdapter(adapter);
     }
 }
