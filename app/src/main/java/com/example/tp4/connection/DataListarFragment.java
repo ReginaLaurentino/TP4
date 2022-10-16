@@ -24,6 +24,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
     private Context context;
     private String Pantalla;
     private String Idbuscar;
+    private EArticulo articulobuscado;
 
     private static String result2;
     private static ArrayList<EArticulo> listaArticulos = new ArrayList<>();
@@ -36,6 +37,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
         gridView = gv;
         context = ct;
         Pantalla = pantalla;
+        Idbuscar = idbuscar;
 
     }
 
@@ -50,6 +52,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
 
             switch (Pantalla){
                 case "listar": Listar(st);
+                case "buscarid": BuscarId (st,Idbuscar);
             }
 
 
@@ -94,5 +97,31 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
             }
 
 
+    }
+
+    private void BuscarId (Statement st,String id){
+        try{
+            ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria where a.id = "+id);
+            result2 = " ";
+
+            ECategoria categoria;
+            while(rs.next()) {
+                articulobuscado = new EArticulo();
+                articulobuscado.setId(rs.getInt("id"));
+                articulobuscado.setStock(rs.getInt("stock"));
+                articulobuscado.setNombre(rs.getString("nombre"));
+                categoria=new ECategoria();
+                categoria.setId(rs.getInt("idCategoria"));
+                categoria.setDescripcion(rs.getString("descripcion"));
+                articulobuscado.setCategoria(categoria);
+                }}
+        catch (Exception ex ){
+            ex.printStackTrace();
+            result2 = "Conexion no exitosa";
+        }
+    }
+
+    public EArticulo getArticulobuscado() {
+        return articulobuscado;
     }
 }
