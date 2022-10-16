@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -13,6 +14,7 @@ import com.example.tp4.entity.ECategoria;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
     private String Pantalla;
     private String Idbuscar;
     private EArticulo articulobuscado;
+    private EArticulo articulo;
+    private String mensajeAgregar;
+
 
     private static String result2;
     private static ArrayList<EArticulo> listaArticulos = new ArrayList<>();
@@ -38,7 +43,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
         context = ct;
         Pantalla = pantalla;
         Idbuscar = idbuscar;
-
+        articulo = art;
     }
 
     @Override
@@ -52,7 +57,12 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
 
             switch (Pantalla){
                 case "listar": Listar(st);
+                break;
                 case "buscarid": BuscarId (st,Idbuscar);
+
+                break;
+                case "agregar": AgregarArticulo(st);
+                break;
             }
 
 
@@ -68,8 +78,29 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        AdaptadorArticulos adapter = new AdaptadorArticulos(context, listaArticulos);
-        gridView.setAdapter(adapter);
+        switch (Pantalla){
+            case "listar": AdaptadorArticulos adapter = new AdaptadorArticulos(context, listaArticulos);
+                gridView.setAdapter(adapter);
+                break;
+            case "agregar": Toast.makeText(context,mensajeAgregar,Toast.LENGTH_LONG).show();
+                break;
+        }
+
+    }
+
+    public void AgregarArticulo(Statement st){
+        try{
+
+            String query= String.format("insert into articulo (id,nombre,stock,idCategoria) values (%1$s,'%2$s',%3$s,%4$s) ", articulo.getId(),articulo.getNombre(),articulo.getStock(),articulo.getCategoria().getId());
+            int rs = st.executeUpdate(query);
+            if (rs > 0)
+                mensajeAgregar = "Artículo agregado con éxito!";
+            else
+                mensajeAgregar = "Error al agregar el artículo!";
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 
