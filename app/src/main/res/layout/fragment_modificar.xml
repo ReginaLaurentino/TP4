@@ -48,18 +48,17 @@
 
                         />
 
+
                     <EditText
                         android:id="@+id/et_Id"
-                        android:layout_width="285dp"
+                        android:layout_width="183dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="#ffffff"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/tv_Id"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:minHeight="48dp"
-                        android:hint="@string/et_Id" />
-
-
+                        android:hint="Ingrese un id"
+                        android:inputType="number"
+                        android:minHeight="48dp" />
 
                     <Button
                         android:id="@+id/btn_Buscar"
@@ -129,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_Categoria"
+                android:contentDescription="@string/btn_Modificar"
                 android:minHeight="48dp" />
 
             <Button

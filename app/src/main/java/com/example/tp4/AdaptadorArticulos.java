@@ -54,8 +54,8 @@ public class AdaptadorArticulos extends BaseAdapter {
         if(articulos != null){
             EArticulo item = (EArticulo) getItem(position);
 
-            Id.setText( String.valueOf(item.getId()) );
-            Nombre.setText(item.getNombre());
+            Id.setText( "ID: " + String.valueOf(item.getId()) );
+            Nombre.setText("Nombre : " + item.getNombre());
         }
 
 
