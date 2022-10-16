@@ -3,6 +3,7 @@ package com.example.tp4;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -23,6 +24,8 @@ public class ListarFragment extends Fragment {
     public static final String TITLE = "Listar";
     private GridView gridView;
     private AdaptadorArticulos adaptador;
+    Context contexto ;
+
 
     public static ListarFragment newInstance() {
 
@@ -33,11 +36,20 @@ public class ListarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listar, container, false);
-        Context contexto = this.getContext();
+        contexto = this.getContext();
         gridView = view.findViewById(R.id.gv_listar);
-        DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null);
+        DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null, null);
         datatask.execute();
         return view;
 
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        gridView = view.findViewById(R.id.gv_listar);
+        DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null, null);
+        datatask.execute();
+    }
+
 }

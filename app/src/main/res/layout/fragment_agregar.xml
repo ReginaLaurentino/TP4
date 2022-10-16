@@ -50,12 +50,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_Stock"
                 android:layout_below="@+id/etNombreProductoAgregar" />
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etStockAgregar"
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
+                    android:layout_below="@+id/tvStockAgregar"
                     android:hint="@string/et_Stock"
-                    android:layout_below="@+id/tvStockAgregar" />
+                    android:numeric="integer" />
             <TextView
                 android:id="@+id/etCategoriaAgregar"
                 android:layout_width="wrap_content"
