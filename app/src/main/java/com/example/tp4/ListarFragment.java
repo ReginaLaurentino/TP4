@@ -35,7 +35,7 @@ public class ListarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_listar, container, false);
         Context contexto = this.getContext();
         gridView = view.findViewById(R.id.gv_listar);
-        DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null, null);
+        DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null);
         datatask.execute();
         return view;
 
