@@ -52,7 +52,8 @@ public class AgregarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cargarCategorias();
+        DataListarFragment datatask = new DataListarFragment(null,this.getContext(), "llenarspinner", null, null, getView());
+        datatask.execute();
         btnAgregar = getView().findViewById(R.id.btnAgregarProducto);
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,17 +69,6 @@ public class AgregarFragment extends Fragment {
 
     }
 
-    public void cargarCategorias(){
-        ArrayList<ECategoria> categorias = new ArrayList<ECategoria>();
-        categorias.add(new ECategoria(1,"Limpieza"));
-        categorias.add(new ECategoria(2,"Lacteos"));
-        categorias.add(new ECategoria(3,"Carnes"));
-        categorias.add(new ECategoria(4,"Bebidas"));
-        ArrayAdapter <ECategoria> adapter = new ArrayAdapter<ECategoria>(this.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,categorias);
-
-        spinnerCategorias = getView().findViewById(R.id.spCategoriaAgregar);
-        spinnerCategorias.setAdapter(adapter);
-    }
 
     public void btnAgregarProducto(){
         try {
@@ -87,9 +77,10 @@ public class AgregarFragment extends Fragment {
                 int id = Integer.valueOf(((EditText)getView().findViewById(R.id.etIdProdAgregar)).getText().toString());
                 String NombreProducto = String.valueOf(((EditText)getView().findViewById(R.id.etNombreProductoAgregar)).getText());
                 int Stock = Integer.valueOf(((EditText)getView().findViewById(R.id.etStockAgregar)).getText().toString());
-                ECategoria categoria = new ECategoria(1,"A");
+                Spinner spinneragregar = getView().findViewById(R.id.spCategoriaAgregar);
+                ECategoria categoria = (ECategoria)spinneragregar.getSelectedItem();
                 EArticulo articulo = new EArticulo(id,NombreProducto,Stock,categoria);
-                DataListarFragment datatask = new DataListarFragment(null,this.getContext(), "agregar", articulo, null);
+                DataListarFragment datatask = new DataListarFragment(null,this.getContext(), "agregar", articulo, null, null);
                 datatask.execute();
             }
 

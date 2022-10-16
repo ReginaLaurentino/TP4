@@ -1,6 +1,7 @@
 package com.example.tp4.entity;
 
 
+import java.util.Objects;
 
 public class EArticulo {
 
@@ -72,5 +73,18 @@ public class EArticulo {
                 ", stock=" + stock +
                 ", categoria=" + categoria +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EArticulo)) return false;
+        EArticulo eArticulo = (EArticulo) o;
+        return getCategoria().equals(eArticulo.getCategoria());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCategoria());
     }
 }
