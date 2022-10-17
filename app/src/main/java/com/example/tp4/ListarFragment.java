@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,16 @@ public class ListarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         gridView = view.findViewById(R.id.gv_listar);
+        final SwipeRefreshLayout pullToRefresh = getView().findViewById(R.id.refreshLayoutListar);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null, null);
+                datatask.execute();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
         DataListarFragment datatask = new DataListarFragment(gridView,contexto, "listar", null,null, null);
         datatask.execute();
     }

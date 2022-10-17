@@ -31,6 +31,7 @@
                     android:layout_height="50dp"
                     android:id="@+id/etIdProdAgregar"
                     android:hint="@string/et_Id"
+                    android:inputType="number"
                     android:layout_below="@+id/tvIdProdAgregar" />
             <TextView
                 android:id="@+id/tvNombreProductoAgregar"
@@ -57,6 +58,7 @@
                     android:layout_height="49dp"
                     android:layout_below="@+id/tvStockAgregar"
                     android:hint="@string/et_Stock"
+                    android:inputType="number"
                     android:numeric="integer" />
             <TextView
                 android:id="@+id/etCategoriaAgregar"

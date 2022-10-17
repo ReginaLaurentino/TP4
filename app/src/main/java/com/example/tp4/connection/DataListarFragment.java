@@ -119,7 +119,6 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
                 spinneragregar.setAdapter(adaptador);
                 break;
             case "modificar":
-                adapter.notifyDataSetChanged();
                 Toast.makeText(context,mensajeModificar,Toast.LENGTH_LONG).show();
                 break;
 
@@ -146,7 +145,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
     private void Listar(Statement st){
 
         try{
-            ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria");
+            ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria order by a.id asc");
             result2 = " ";
             listaArticulos= new ArrayList<>();
             EArticulo articulo;
