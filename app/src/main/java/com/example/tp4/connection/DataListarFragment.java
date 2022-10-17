@@ -100,17 +100,22 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
             case "agregar": Toast.makeText(context,mensajeAgregar,Toast.LENGTH_LONG).show();
                 break;
             case "buscarid" :
-                TextView nombre = (TextView)View.findViewById(R.id.et_NombreProducto);
-                TextView stock = (TextView)View.findViewById(R.id.et_Stock);
-                Spinner categoria = (Spinner)View.findViewById(R.id.sp_Categoria);
+                if (articulobuscado !=null){
+                    TextView nombre = (TextView)View.findViewById(R.id.et_NombreProducto);
+                    TextView stock = (TextView)View.findViewById(R.id.et_Stock);
+                    Spinner categoria = (Spinner)View.findViewById(R.id.sp_Categoria);
 
-                adaptador= new ArrayAdapter<ECategoria>(context, android.R.layout.simple_spinner_item, listaCategorias);
-                categoria.setAdapter(adaptador);
+                    adaptador= new ArrayAdapter<ECategoria>(context, android.R.layout.simple_spinner_item, listaCategorias);
+                    categoria.setAdapter(adaptador);
 
-                int aux = adaptador.getPosition(articulobuscado.getCategoria());
-                categoria.setSelection(aux);
-                nombre.setText(articulobuscado.getNombre());
-                stock.setText( String.valueOf( articulobuscado.getStock()) );
+                    int aux = adaptador.getPosition(articulobuscado.getCategoria());
+                    categoria.setSelection(aux);
+                    nombre.setText(articulobuscado.getNombre());
+                    stock.setText( String.valueOf( articulobuscado.getStock()) );
+                }
+                else
+                    Toast.makeText(context,"ID de artículo incorrecto!",Toast.LENGTH_LONG).show();
+
 
                 break;
             case "llenarspinner":
@@ -119,7 +124,6 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
                 spinneragregar.setAdapter(adaptador);
                 break;
             case "modificar":
-                adapter.notifyDataSetChanged();
                 Toast.makeText(context,mensajeModificar,Toast.LENGTH_LONG).show();
                 break;
 
@@ -139,6 +143,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
         }
         catch (Exception ex){
             ex.printStackTrace();
+            mensajeAgregar = "Error al agregar el artículo!";
         }
     }
 
@@ -146,7 +151,7 @@ public class DataListarFragment extends AsyncTask<String, Void, String> {
     private void Listar(Statement st){
 
         try{
-            ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria");
+            ResultSet rs = st.executeQuery("SELECT a.id,a.stock,a.nombre,a.idCategoria,c.descripcion FROM articulo a inner join categoria c on c.id=a.idCategoria order by a.id asc");
             result2 = " ";
             listaArticulos= new ArrayList<>();
             EArticulo articulo;

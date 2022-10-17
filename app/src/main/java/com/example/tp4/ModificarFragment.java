@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tp4.connection.DataListarFragment;
 import com.example.tp4.entity.EArticulo;
@@ -68,15 +69,26 @@ public class ModificarFragment extends Fragment {
         BTNmodificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView nombrenuevo = (TextView)getView().findViewById(R.id.et_NombreProducto);
-                TextView stocknuevo = (TextView)getView().findViewById(R.id.et_Stock);
-                Spinner spcatnuevo = getView().findViewById(R.id.sp_Categoria);
-                ECategoria categoria = (ECategoria)spcatnuevo.getSelectedItem();
-                artamodificar= new EArticulo();
-                artamodificar.setNombre(nombrenuevo.getText().toString());
-                artamodificar.setStock(parseInt(stocknuevo.getText().toString()) );
-                artamodificar.setCategoria(categoria);
-                Modificar (artamodificar, id);
+                try{
+                    if (id != null){
+                        TextView nombrenuevo = (TextView)getView().findViewById(R.id.et_NombreProducto);
+                        TextView stocknuevo = (TextView)getView().findViewById(R.id.et_Stock);
+                        Spinner spcatnuevo = getView().findViewById(R.id.sp_Categoria);
+                        ECategoria categoria = (ECategoria)spcatnuevo.getSelectedItem();
+                        artamodificar= new EArticulo();
+                        artamodificar.setNombre(nombrenuevo.getText().toString());
+                        artamodificar.setStock(parseInt(stocknuevo.getText().toString()) );
+                        artamodificar.setCategoria(categoria);
+                        Modificar (artamodificar, id);
+                    }
+                    else
+                        Toast.makeText( v.getContext(),"Debe buscar un articulo por ID para modificarlo!", Toast.LENGTH_LONG).show();
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
+                    Toast.makeText( v.getContext(),"No se pudo modificar este artículo!", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
