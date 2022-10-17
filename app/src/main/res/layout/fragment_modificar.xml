@@ -93,7 +93,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="@string/et_NombreProducto" />
+                android:hint="@string/et_NombreProducto" />
 
             <TextView
                 android:id="@+id/tv_Stock"
@@ -112,7 +112,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="@string/et_Stock" />
+                android:hint="@string/et_Stock" />
 
             <TextView
                 android:id="@+id/tv_Categoria"
